@@ -22,6 +22,8 @@ public class BCompApp {
 		String mpname;
 		String app;
 
+		System.setProperty("awt.useSystemAAFontSettings", "on");
+
 		try {
 			app = System.getProperty("mode", "gui");
 		} catch (Exception e) {

@@ -22,12 +22,14 @@ public class DisplayStyles {
     // Fonts
     private static Font fontPlain;
     private static Font fontBold;
+    private static Font fontMono;
 
     static {
 
         try {
             fontPlain = Font.createFont(Font.TRUETYPE_FONT, DisplayStyles.class.getClassLoader().getResourceAsStream("Roboto-Regular.ttf"));
             fontBold = Font.createFont(Font.TRUETYPE_FONT, DisplayStyles.class.getClassLoader().getResourceAsStream("Roboto-Medium.ttf"));
+            fontMono = Font.createFont(Font.TRUETYPE_FONT, DisplayStyles.class.getClassLoader().getResourceAsStream("RobotoMono-Regular.ttf"));
         } catch (Exception ex) {
             ex.printStackTrace();
             fontPlain = new Font("Courier New", Font.PLAIN, 24);
@@ -38,6 +40,8 @@ public class DisplayStyles {
 
     //public static final Font FONT_COURIER_PLAIN_12 = new Font("Courier New", Font.PLAIN, 12);
     public static final Font FONT_COURIER_PLAIN_12 = fontPlain.deriveFont(12f);
+
+    public static final Font FONT_MONO_PLAIN_21 = fontMono.deriveFont(21f);
 
 
     //public static final Font FONT_COURIER_PLAIN_16 = new Font("Courier New", Font.PLAIN, 16);

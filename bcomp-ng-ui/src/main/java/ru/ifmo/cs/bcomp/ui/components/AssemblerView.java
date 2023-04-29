@@ -43,6 +43,7 @@ public class AssemblerView extends BCompPanel implements ActionListener {
                 
 		text = new JTextArea();
 		text.setFont(FONT_COURIER_BOLD_21);
+        text.setFont(FONT_MONO_PLAIN_21);
 		JScrollPane scroll = new JScrollPane(text);
 		pane.add(scroll,BorderLayout.CENTER);
 
