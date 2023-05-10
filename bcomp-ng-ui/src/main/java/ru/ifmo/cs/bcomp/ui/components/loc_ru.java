@@ -32,6 +32,7 @@ public class loc_ru extends ListResourceBundle {
             {"DEV-7", "ВУ 7"},
             {"DEV-8", "ВУ 8"},
             {"DEV-9", "ВУ 9"},
+            {"disk", "Дисковое устройство (0x8-0xB)"},
             {"printer", "Текстовый принтер (0xC-0xF)"},
             {"ticker", "Бегущая строка (0x10-0x13)"},
             {"ssd", "Семисегментный индикатор (0x14-0x17)"},

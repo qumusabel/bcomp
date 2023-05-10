@@ -31,6 +31,7 @@ public class BasicView extends BCompPanel {
     private IOCtrl[] ioctrls;
     private FirstIO firstIO;
     private SecondIO secondIO;
+    private DiskDrive diskDrive = null;
     private TextPrinter textPrinter = null;
     private Ticker ticker = null;
     private SevenSegmentDisplay ssd = null;
@@ -86,8 +87,23 @@ public class BasicView extends BCompPanel {
                     thirdIO.getFrame().setVisible(false);
             }
         }
-    }, null,
-        new ItemListener() {
+    }, new ItemListener() {
+        @Override
+        public void itemStateChanged(ItemEvent e) {
+            switch (e.getStateChange()) {
+                case ItemEvent.SELECTED:
+                    if (diskDrive == null) {
+                        diskDrive = new DiskDrive((IOCtrlAdv) ioctrls[4]);
+                        activateAndAddListener(diskDrive, 3);
+                    } else {
+                        diskDrive.activate();
+                    }
+                    break;
+                case ItemEvent.DESELECTED:
+                    diskDrive.getFrame().setVisible(false);
+            }
+        }
+    }, new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 switch (e.getStateChange()) {
