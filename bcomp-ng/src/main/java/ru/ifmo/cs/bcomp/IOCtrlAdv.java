@@ -5,6 +5,7 @@ package ru.ifmo.cs.bcomp;
 
 import ru.ifmo.cs.components.*;
 
+
 /**
  *
  * @author Dmitry Afanasiev <KOT@MATPOCKuH.Ru>
@@ -20,6 +21,7 @@ public class IOCtrlAdv extends IOCtrl {
         new Register(8),
         new Register(8),};
     private final Control writeToRegister[] = new Control[registers.length];
+    private final Control readFromRegister[] = new Control[registers.length];
     private final DataDestination irqsc;
 
     public IOCtrlAdv(long addr, CPU cpu, DataDestination... chainctrl) {
@@ -41,7 +43,7 @@ public class IOCtrlAdv extends IOCtrl {
                 new Valve(ioctrl, 8, 0, i,
                     // Input
                     new Valve(Consts.consts[1], 1, 0, IOControlSignal.IN.ordinal(),
-                            new Valve(registers[i], 8, 0, 0, iodata),
+                            readFromRegister[i] = new Valve(registers[i], 8, 0, 0, iodata),
                             rdy
                     ),
                     // Output
@@ -64,8 +66,20 @@ public class IOCtrlAdv extends IOCtrl {
 
     @Override
     public void setReady() {
-        registers[STATE].setValue(1, 1, READYBIT);
-        updateStateIRQ();
+        setReady(true);
+    }
+
+    public void unsetReady() {
+        setReady(false);
+    }
+
+    public void setReady(boolean val) {
+        if (val) {
+            registers[STATE].setValue(1, 1, READYBIT);
+            updateStateIRQ();
+        } else {
+            registers[STATE].setValue(0, 1, READYBIT);
+        }
     }
 
     @Override
@@ -80,7 +94,15 @@ public class IOCtrlAdv extends IOCtrl {
 
     @Override
     public void addDestination(int reg, DataDestination... dsts) {
+        addWriteDestination(0, dsts);
+    }
+
+    public void addWriteDestination(int reg, DataDestination... dsts) {
         writeToRegister[reg].addDestination(dsts);
+    }
+
+    public void addReadDestination(int reg, DataDestination... dsts) {
+        readFromRegister[reg].addDestination(dsts);
     }
 
     @Override
